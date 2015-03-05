@@ -89,7 +89,7 @@ Randomly sampling conversations on a medium like twitter is a difficult problem.
 
 To sample such interactions, we developed a ``seed'' strategy where we identified popular twitter accounts and then downloaded a large sample of their tweets, then downloaded a sample of the tweets of all the users they mentioned. This strategy allowed us to reconstruct a relatively dense sample of dialogues (reply chains).
 
-We began by choosing a set of 14 seed Twitter accounts that spanned a variety of genres, were popular enough to elicit replies, and that represented users who interacted with other users often enough to build up a community.  We chose two Youtube celebrities ({\tt @camerondallas}, {\tt @rickypdillon}), two musicians ({\tt @edsheeran}, {\tt @yelyahwilliams}), two journalists/columnists ({\tt @felixsalmon}, {\tt @tanehisicoates}), three politicians ({\tt @jahimes}, {\tt @jaredpolis}, {\tt @leezeldin}), two economists ({\tt @larrymishel}, {\tt @paulnvandewater}), and three popular scientists ({\tt @neiltyson}, {\tt @profbriancox}, {\tt @richardwiseman}).
+We began by choosing a set of 14 seed Twitter accounts that spanned a variety of genres, were popular enough to elicit replies, and that represented users who interacted with other users often enough to build up a community.  We chose two Youtube celebrities ({\tt @camerondallas}, {\tt @rickypdillon}), two musicians ({\tt @edsheeran}, {\tt @yelyahwilliams}), two journalists/columnists ({\tt @felixsalmon}, {\tt @tanehisicoates}), three politicians ({\tt @jahimes}, {\tt @jaredpolis}, {\tt @leezeldin}), two economists ({\tt @larrymishel}, {\tt @paulnvandewater}), and three popular scientists ({\tt @neiltyson}, {\tt @profbriancox}, {\tt @richardwiseman}). [Better as a table?]
 
 To build conversations, we needed to obtain tweets directed to and from these seed users. For each seed user, we downloaded their last 1500 tweets, extracted all users mentioned within those tweets, and downloaded each of their last 1500 tweets.  To capture tweets that failed to start conversations with the seed users, we also added the last 1000 tweets mentioning each seed user's handle.
 
@@ -107,7 +107,24 @@ We then built trigram langauge models using SRILM with default settings and Knes
 
 \section{Analyses}
 
-We describe the results of three sets of analyses. The first examine 
+We describe the results of three sets of analyses looking at the influence of audience size and available context on apparent informativity. The first examines the effect of expected audience size at a coarse level, comparing tweets directed at a small subset of users, all one's followers, or the wider realm of a hashtag.   The second examines the effect of finer differences in known audience size on apparent informativity.  The third moves into conversations and tracks how conversational context and length affect informativity.
+
+[What's the right thing to call the perplexity? Apparent/out-of-context informativity? Predictability?]
+
+\subsection{Expected audience size}
+First, we consider three different types of tweets and their expected audience size.  A tweet whose first word is a mention will not appear in most Twitter visualizations unless the reader follows both the tweeter and the first-mentioned user, or is mentioned somewhere in the tweet. (We will refer to these as ``invisible'' tweets as they are invisible to followers by default.)  A tweeter making an initial-mention tweet thus should expect such a tweet to have a relatively limited audience, with a focus on the mentioned users.\footnote{As evidence for conscious manipulation of the audience size, many tweets have an initial period or other punctuation mark to prevent this hiding of a tweet, and some users will switch between initial-mention replies and ``dot''-replies in the course of a conversation to change the audience.}
+
+On the other side, a hashtag serves as an ad hoc categorization mechanism, and often is used to expand the potential audience for a tweet by including in the feeds of users tracking that hashtag, regardless of whether they follow the tweeter.  Thus, a tweeter using a hashtag should expect a larger audience than normal.  Finally, we have baseline tweets which contain neither mentions nor hashtags and whose expected audience size is approximately one's followers.
+
+Intuitively, context is higher for smaller audiences. Context should be highest for the invisible tweets, where the audience is limited and has seen or can access the previous tweets in the conversation.  Context should be lowest for the hashtagged tweets, where the audience is the largest and will likely contain many users who are completely unfamilair with the tweeter.  If contextualized UID is the driving force affecting information content, then the invisible tweets should have the highest entropy and hashtagged tweets should have the lowest.
+
+Figure \ref{fig:audience-coarse} plots the entropy of tweets for these three audience sizes, and shows the opposite effect.  Per-word and per-tweet entropy both significantly {\it increase} with expected audience size ($p < .001$).
+
+\subsection{Known audience size}
+The results from expected audience size have a potential confound in that the way these different tweet types are accessed are sbstantially different, and may encourage different decision-theoretic choices in tweet behavior.  TWeets with mentions are highly likely to be seen by the mentioned user (unless the mentioned user is very commonly mentioned), whereas the likleihood of a given hashtagged tweet being seen through the hashtag-searching mechanism is very low.  This may lead a rational tweeter to package information into tweets differently, such as including more redundant information across tweets when the likleihood of any given tweet being read is low.
+
+To assess audience size effects in a more controlled setting, we look at tweets with varying numbers of mentions.  Invisible tweets with few mentions have a smaller audience than invisible tweets with more mentions.  Visible tweets, on the other hand, have approximately the same audience size regardless of the number of mentions.  Therefore, we examine the effect of number of mentions in invisible tweets on entropy both in isolation and in comparison to the effect of the number of mentions in visible tweets.
+
 
 \subsection{Reply depth and conversation length}
 [Blah blah on why interesting.]
