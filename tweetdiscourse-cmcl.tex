@@ -5,6 +5,7 @@
 \usepackage{url}
 \usepackage[pdftex]{graphicx}
 \usepackage{breqn}
+\usepackage{multirow}
 \setlength\titlebox{6.5cm}    % Expanding the titlebox
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -83,15 +84,44 @@ In addition, however, the presence of reply chains also allows us to investigate
 
 \section{Corpus}
 
-Randomly sampling conversations on a medium like twitter is a difficult problem. Twitter users routinely use the medium to converse in smaller groups via the \@ mention functionality (described in more detail below). Yet such conversations are not uniformly distributed: A random sample of tweets---perhaps chosen because they contain the word ``the'' or a similarly common token \cite{doyle2014}---does not yield any density of dialogues. Dialogues tend to occur because a user with a sufficient community of followers posts a tweet that causes followers to engage and then responds to at least some of the followers' reactions. 
+Randomly sampling conversations on a medium like Twitter is a difficult problem. Twitter users routinely use the medium to converse in smaller groups via the \@ mention functionality (described in more detail below). Yet such conversations are not uniformly distributed: A random sample of tweets---perhaps chosen because they contain the word ``the'' or a similarly common token \cite{doyle2014}---does not yield any density of dialogues. Dialogues tend to occur because a user with a sufficient community of followers posts a tweet that causes followers to engage and then responds to at least some of the followers' reactions. 
 
 \paragraph{Seed strategy}
 
 To sample such interactions, we developed a ``seed'' strategy where we identified popular twitter accounts and then downloaded a large sample of their tweets, then downloaded a sample of the tweets of all the users they mentioned. This strategy allowed us to reconstruct a relatively dense sample of dialogues (reply chains).
 
-We began by choosing a set of 14 seed Twitter accounts that spanned a variety of genres, were popular enough to elicit replies, and that represented users who interacted with other users often enough to build up a community.  We chose two Youtube celebrities ({\tt @camerondallas}, {\tt @rickypdillon}), two musicians ({\tt @edsheeran}, {\tt @yelyahwilliams}), two journalists/columnists ({\tt @felixsalmon}, {\tt @tanehisicoates}), three politicians ({\tt @jahimes}, {\tt @jaredpolis}, {\tt @leezeldin}), two economists ({\tt @larrymishel}, {\tt @paulnvandewater}), and three popular scientists ({\tt @neiltyson}, {\tt @profbriancox}, {\tt @richardwiseman}). [Better as a table?]
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+{\tt @camerondallas} & \multirow{2}{*}{Youtube celebrities} \\
+{\tt @rickypdillon} & \\
+\hline
+{\tt @edsheeran} & \multirow{2}{*}{Musicians} \\
+{\tt @yelyahwilliams} & \\
+\hline
+{\tt @felixsalmon} & \multirow{2}{*}{Journalists} \\
+{\tt @tanehisicoates} & \\
+\hline
+{\tt @jahimes} & \multirow{3}{*}{Politicians} \\
+{\tt @jaredpolis} & \\
+{\tt @leezeldin} & \\
+\hline
+{\tt @larrymishel} & \multirow{2}{*}{Economists} \\
+{\tt @paulnvandewater} & \\
+\hline
+{\tt @neiltyson} & \multirow{3}{*}{Pop. Scientists} \\
+{\tt @profbriancox} & \\
+{\tt @richardwiseman} & \\
+\hline
+\end{tabular}
+\end{center}
+\caption{\label{tab:seed-users} Seed users for our dataset.}
+\end{table}
 
-To build conversations, we needed to obtain tweets directed to and from these seed users. For each seed user, we downloaded their last 1500 tweets, extracted all users mentioned within those tweets, and downloaded each of their last 1500 tweets.  To capture tweets that failed to start conversations with the seed users, we also added the last 1000 tweets mentioning each seed user's handle.
+We began by choosing a set of 14 seed Twitter accounts that spanned a variety of genres, were popular enough to elicit replies, and interacted with other users often enough to build up a community.  The seed users are listed in Table \ref{tab:seed-users}.  
+
+To build conversations, we needed to obtain tweets directed to and from these seed users. For each seed user, we downloaded their last 1500 tweets, extracted all users mentioned within those tweets, and downloaded each of their last 1500 tweets.  To capture tweets that failed to start conversations with the seed users, we also added the last 1000 tweets mentioning each seed user's handle.  Tweets that appeared in multiple communities were removed.  Each reply contains the ID of the tweet it replies to, so we could rebuild conversation trees back to their roots, so long as all of the preceding tweets were made by users in our communities.
 
 \paragraph{Conversation structure and visibility}
 
@@ -99,11 +129,14 @@ Twitter conversations follow a basic tree structure with a unique root node. Eac
 
 Mentions also affect tweet visibility.  Tweets whose first character is a mention (whether or not it is a reply) do not show up by default when browsing a user's tweets, unless the browser follows both the tweeter and first-mentioned user.\footnote{This behavior varies slightly depending on what application is used to view Twitter.  On the website, mention-first tweets do not appear in lists and only appear after clicking the 'tweets \& replies' option on a timeline. On the Twitter mobile app, mention-first tweets appear by default on a timeline but still not in lists.}
 
+After some processing described below, this process resulted in 5.5 million tweets, of which 230,023 were part of rooted conversations with at least one reply in our dataset. An additional 3.3 million tweets were not part of a conversation (not a reply, and received no replies).  Unfortunately, Twitter only tracks replies up a tree, so while we know with certainty whether a tweet is a reply (even if it is to a user outside our communities), we do not know with certainty that a tweet has recieved no replies, especially from users outside our communities.  The remaining 2 million tweets were replies whose conversations could not be traced back to the root.
+
+
 \paragraph{Information content estimation}
 
 To estimate the information content of a tweet, we first tokenized the tweets using Twokenizer \cite{owoputi2013}. We then removed any number of mentions at the beginning or end of a tweet, as these are usually markers of conversation structure rather than conveying information themselves.  Tweet-medial mentions were retained but masked with the single type {\it [MENTION]}. Links were similarly masked as {\it [URL]}. Punctuation and emoji were retained.
 
-We then built trigram langauge models using SRILM with default settings and Kneser-Ney discounting.  Types with fewer than 5 tokens were treated as out-of-vocabulary items. For each seed user, the training set was the set of all tweets from all other seed users. Tweets that appeared in multiple seed user sets were removed.
+We then built trigram langauge models using SRILM with default settings and Kneser-Ney discounting.  Types with fewer than 5 tokens were treated as out-of-vocabulary items. For each seed user, the training set was the set of all tweets from all other seed users.  
 
 \section{Analyses}
 
