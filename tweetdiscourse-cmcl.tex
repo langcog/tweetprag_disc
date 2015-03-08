@@ -169,7 +169,7 @@ We then built trigram langauge models using SRILM with default settings and Knes
 
 We describe the results of three sets of analyses looking at the influence of audience size and available context on apparent tweet entropy. The first examines the effect of expected audience size at a coarse level, comparing tweets directed at a small subset of users, all one's followers, or the wider realm of a hashtag.   The second examines the effect of finer differences in known audience size on apparent informativity.  The third moves into conversations and tracks how conversational context and length affect informativity.
 
-[Note: final values of effect sizes and p-values, based on full regression model, will be added tonight.]
+[Note: final values of effect sizes and p-values, based on full regression model, will be added tonight. The graphs also need ot be improved]
 
 \subsection{Expected audience size}
 First, we consider three different types of tweets and their expected audience size.  A tweet whose first word is a mention will not appear in most Twitter visualizations unless the reader follows both the tweeter and the first-mentioned user, or is mentioned somewhere in the tweet. (We will refer to these as ``invisible'' tweets as they are invisible to followers by default.)  A tweeter making an initial-mention tweet thus should expect such a tweet to have a relatively limited audience, with a focus on the mentioned users.\footnote{As evidence for conscious manipulation of the audience size, many tweets have an initial period or other punctuation mark to prevent this hiding of a tweet, and some users will switch between initial-mention replies and ``dot''-replies in the course of a conversation to change the audience.}
@@ -181,7 +181,7 @@ Intuitively, context is higher for smaller audiences. Context should be highest 
 \begin{figure}
  \centering
   \includegraphics[width=1.7in]{figures/cmcl-audience-pw.pdf}\includegraphics[width=1.7in]{figures/cmcl-audience-pt.pdf}
- \caption{Per-word (top) and per-tweet (bottom) entropy are lower for tweets with smaller expected audience size. Linear fits with 95\% confidence intervals.}\label{fig:audience}\vspace*{-.5em}
+ \caption{Per-word (left) and per-tweet (right) entropy are higher for tweets with larger expected audience size. By-user 95\% confidence intervals.}\label{fig:audience}\vspace*{-.5em}
 \end{figure}
 
 
@@ -192,6 +192,14 @@ The results from expected audience size have a potential confound in that the wa
 
 To assess audience size effects in a more controlled setting, we look at tweets with varying numbers of mentions.  Invisible tweets with few mentions have a smaller audience than invisible tweets with more mentions.  Visible tweets, on the other hand, have approximately the same audience size regardless of the number of mentions.  Therefore, we examine the effect of number of mentions in invisible tweets on entropy both in isolation and in comparison to the effect of the number of mentions in visible tweets.
 
+\begin{figure}
+ \centering
+  \includegraphics[width=3.25in]{figures/cmcl-mentions-pw.pdf}
+  \includegraphics[width=3.25in]{figures/cmcl-mentions-pt.pdf}
+ \caption{Per-word (top) and per-tweet (bottom) entropy of tweets with different numbers of mentions and different visibility.  Invisible tweets' entropy increases with mentions, suggesting entropy increases with audience size.  Logarithmic fits with 95\% confidence intervals.}\label{fig:mentions}\vspace*{-.5em}
+\end{figure}
+
+Figure \ref{fig:mentions} shows that the per-word entropy of invisible tweets goes up with the number of mentions.  The per-word entropy of viisble tweets, though, goes down with number of mentions.  For visible tweets, the audience size is relatively independent of the number of mentions, as most tweeters have substantially more followers than the maximum number of mentions in a tweet.  For invisible tweets, the audience size is dominated by the number of mentions, since most of the tweeter's followers are unlikely to see the invisible tweet.  Looking at the interaction between visible and invisible tweet behavior with an increasing number of mentions suggests a controlled effect of audience size.
 
 \subsection{Reply depth and conversation length}
 [Blah blah on why interesting.]
