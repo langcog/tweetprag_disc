@@ -171,3 +171,87 @@ qplot(audience, lppl,
                   
 dev.off()
 
+###################################################################
+# Mentions
+
+maxmentions <- 6
+break_list <- -1:maxmentions
+
+fdf$visibility <- ifelse(fdf$invisible,'invisible','visible')
+
+mss <- fdf %>% 
+  filter(words>0) %>%
+  filter(mentions<maxmentions) %>%
+  mutate(binned.mentions = cut(mentions, 
+                             breaks = break_list, 
+                             labels = break_list[2:length(break_list)],
+                             include.lowest=F)) %>%
+  filter(!is.na(binned.mentions)) %>%
+  mutate(binned.mentions = as.numeric(as.character((binned.mentions)))) %>%
+  group_by(binned.mentions, uid, visibility) %>%
+  summarise(n = n(), 
+            ci = NA,
+            lppl = mean(lppl))
+
+ms <- mss %>%
+  group_by(binned.mentions,visibility) %>%
+  summarise(ci = sem(lppl)*1.96,
+            lppl = mean(lppl), 
+            n = sum(n))
+
+pdf("../figures/cmcl-mentions-pw.pdf", width=5, height=3.5)
+
+qplot(binned.mentions, lppl, 
+      group = visibility, col = visibility, 
+      ymin = lppl - ci, ymax = lppl + ci, 
+      position = position_dodge(width = .1), 
+      geom="pointrange",
+      group = as.factor(binned.mentions),
+      #col = as.factor(binned.mentions),
+      data = ms,xlab='# of mentions',ylab='per-word perplexity',title='per-word') +
+  stat_smooth(data= mss,method='lm', formula=y~poly(x,2),
+              aes(x = binned.mentions, 
+                  y = lppl, 
+                  group = visibility)) + theme_classic() #+ scale_color_discrete(name='visibility')
+  
+dev.off()
+
+# per-tweet mentions
+
+mss <- fdf %>% 
+  filter(words>0) %>%
+  filter(mentions<maxmentions) %>%
+  mutate(binned.mentions = cut(mentions, 
+                             breaks = break_list, 
+                             labels = break_list[2:length(break_list)],
+                             include.lowest=F)) %>%
+  filter(!is.na(binned.mentions)) %>%
+  mutate(binned.mentions = as.numeric(as.character((binned.mentions)))) %>%
+  group_by(binned.mentions, uid, visibility) %>%
+  summarise(n = n(), 
+            ci = NA,
+            lppl = mean(words*lppl))
+
+ms <- mss %>%
+  group_by(binned.mentions,visibility) %>%
+  summarise(ci = sem(lppl)*1.96,
+            lppl = mean(lppl), 
+            n = sum(n))
+
+pdf("../figures/cmcl-mentions-pt.pdf", width=5, height=3.5)
+
+qplot(binned.mentions, lppl, 
+      group = visibility, col = visibility, 
+      ymin = lppl - ci, ymax = lppl + ci, 
+      position = position_dodge(width = .1), 
+      geom="pointrange",
+      group = as.factor(binned.mentions),
+      #col = as.factor(binned.mentions),
+      data = ms,xlab='# of mentions',ylab='per-tweet perplexity',title='per-tweet') +
+  stat_smooth(data= mss,method='lm', formula=y~poly(x,2),
+              aes(x = binned.mentions, 
+                  y = lppl, 
+                  group = visibility)) + theme_classic() #+ scale_color_discrete(name='visibility')
+  
+dev.off()
+
