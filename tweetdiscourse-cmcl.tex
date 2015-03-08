@@ -33,9 +33,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Effects of non-linguistic context
-\title{Audience and discourse modulate information density on twitter 
+\title{Audience and discourse modulate information density on twitter\Thanks{Thanks to...}}
 % Information content changes with audience and conversation length in microblog texts
-\Thanks{Thanks to...}}
 % common ground decreases information
 
 \author{Author 1\\
@@ -92,22 +91,27 @@ The present study applies information-theoretic analysis to a corpus of tweets t
 %
 %In addition, however, the presence of reply chains also allows us to investigate UID in dialogic contexts through the complexity increase effect \cite{genzel2002}. Previous work has been based on written texts (often news reports that follow a particular, relatively stereotyped format).  With the exception of one preliminary study that provided a partial replication of the original complexity increase effect using the Switchboard corpus \cite{vega2009}, to our knowledge no work has explored how the dynamics of conversation interact with UID. 
 
-\section{Conversations, context, and content}
-One common motivation for the UID hypothesis is a rational analysis based on a noisy-channel model of communication \cite{levy2007}.\footnote{The other common motivation is a surprisal-based argument, as UID minimizes comprehension effort.}  In the noisy-channel analysis, the amount of noise in the channel sets an optimal value for information density to obtain fast, error-free transmission.  For a noise level $\alpha$, we will refer to the optimal information content per discourse unit $Y_i$ as $H_\alpha(Y_i)$.  Discourse units, depending on the analysis, can range from syllables to whole documents; in our analyses, we focus on words and tweets as our discourse units.
+\subsection{Conversations, context, and content}
 
-In the course of a message, as argued by \newcite{genzel2002}, the actual information content per discourse unit is predicted by the entropy of the random variable $X_i$ representing the precise word choice or choices within the discourse unit, conditioned on the available context.  The precise extent of this context is difficult to pin down. We approximate it for our dialogue studies by thinking in terms of the {\it common ground} \cite{clark1996} that a rational tweeter believes exists with the expected audience of each tweet. Common ground is defined as the knowledge that participants in a discourse have and that participants know other participants have, including the current conversational context. This common ground can be built from a combination of linguistic and non-linguistic context, including previous messages within the discourse, preceding interactions between the conversation participants, and world knowledge of events being discussed.
+One common motivation for the UID hypothesis is a rational analysis based on a noisy-channel model of communication \cite{levy2007}.\footnote{The other common motivation is a surprisal-based argument \cite{levy2008}: maintaining UID also minimizes the listener's comprehension effort.}  In the noisy-channel analysis, the amount of noise in the channel sets an optimal value for information density to obtain fast, error-free transmission.  For a noise level $\alpha$, we will refer to the optimal information content per discourse unit $Y_i$ as $H_\alpha(Y_i)$.  Discourse units, depending on the analysis, can range from syllables to whole documents; in our analyses, we focus on words and tweets as our discourse units.
 
-If $C_i$ is the common ground available prior to the production of discourse unit $Y_i$, and the expected noise level in the channel that $Y_i$ is transmitted through, then optimality within a noisy channel model predicts the following relationship will hold:
+In the course of a message, as argued by \newcite{genzel2002}, the actual information content per discourse unit is predicted by the entropy of the random variable $X_i$ representing the precise word choice or choices within the discourse unit, conditioned on the available context.  The precise extent of this context is difficult to pin down. 
+
+We approximate context for our dialogue studies by thinking in terms of the {\it common ground} that a rational speaker believes to exist, given the expected audience of their message. Common ground is defined as the knowledge that participants in a discourse have and that participants know other participants have, including the current conversational context \cite{clark1996}. This common ground can be built from a combination of linguistic and non-linguistic context, including previous messages within the discourse, preceding interactions between the conversation participants, and world knowledge about the topic being discussed.
+
+If $C_i$ is the common ground available prior to the production of discourse unit $Y_i$, and $\alpha$ is the expected noise level in the channel that $Y_i$ is transmitted through, then optimality within a noisy channel model predicts the following relationship will hold:
 
 \begin{equation}
 H_{\alpha}(Y_i|C_i) =  H(X_i) - I(X_i ; C_i) \label{eq:uid}
 \end{equation}
 
-$H(X_i)$ is the apparent decontextualized entropy of the discourse unit independent of any common ground, and $I(X_i;C_i)$ is the mutual information of the discourse unit random variable $X_i$ and the common ground $C_i$.  The hypothesized equality in Eq. \ref{eq:uid} makes two predictions. First, as channel noise increases, $H_\alpha(Y_i)$ will decrease, and apparent entropy will decrease. Second, as common ground increases, apparent entropy will again increase.  
+$H(X_i)$ is the apparent decontextualized entropy of the discourse unit independent of any common ground, and $I(X_i;C_i)$ is the mutual information of the discourse unit random variable $X_i$ and the common ground $C_i$.  The hypothesized equality in Eq. \ref{eq:uid} makes two predictions. First, as channel noise increases, $H_\alpha(Y_i)$ will decrease, and apparent entropy will decrease. Second, as common ground increases, apparent entropy will increase.  
 
-We take advantage of the conversational structure of Twitter to test these predictions.  We first examine three different types of tweets (replies, hashtagged, and baseline) with different noise levels and common ground affect tweet entropy.  We then consider replies with varying audience sizes to separate out an effect of common ground.  Finally, we look at the effects of common ground, by way of conversation structure, on tweet entropy.
+\subsection{The current study}
 
-Contrary to previous UID findings, we do not see a clear increase in apparent entropy estimates due to more extensive common ground, as had been found in previous non-conversational work \cite{genzel2002,doyle2015}.  We propose two factors that may be influencing conversational content in addition to UID factors.  First, considering and adapting to two different types of noise---message loss and message corruption---may cause tweeters to make large-scale decisions that overwhelm any UID effects.  Second, achieving conversational goals may be more dependent on certain discourse units that carry low linguistic informativity but substantial social/conversational importance.
+We take advantage of the conversational structure of Twitter to test these predictions.  We first examine three different types of tweets (replies, hashtagged, and baseline) with different noise levels and common ground affect tweet entropy.  We then consider replies with varying audience sizes to separate out an effect of common ground.  Finally, we look at the effects of common ground, by way of conversation structure, on tweet entropy. Contrary to previous UID findings, we do not see a clear increase in apparent entropy estimates due to more extensive common ground, as had been found in previous non-conversational work \cite{genzel2002,qian2012,doyle2015}.  
+
+We propose two factors that may be influencing conversational content in addition to UID factors.  First, considering and adapting to two different types of noise---message loss and message corruption---may cause tweeters to make large-scale decisions that overwhelm any UID effects.  Second, achieving conversational goals may be more dependent on certain discourse units that carry low linguistic informativity but substantial social/conversational importance.
 
 \section{Corpus}
 
@@ -156,14 +160,13 @@ Twitter conversations follow a basic tree structure with a unique root node. Eac
 
 Mentions also affect tweet visibility.  Tweets whose first character is a mention (whether or not it is a reply) do not show up by default when browsing a user's tweets, unless the browser follows both the tweeter and first-mentioned user.\footnote{This behavior varies slightly depending on what application is used to view Twitter.  On the website, mention-first tweets do not appear in lists and only appear after clicking the 'tweets \& replies' option on a timeline. On the Twitter mobile app, mention-first tweets appear by default on a timeline but still not in lists.}
 
-After some processing described below, this process resulted in 5.5 million tweets, of which 230,023 were part of rooted conversations with at least one reply in our dataset. An additional 3.3 million tweets were not part of a conversation (not a reply, and received no replies).  Unfortunately, Twitter only tracks replies up a tree, so while we know with certainty whether a tweet is a reply (even if it is to a user outside our communities), we do not know with certainty that a tweet has recieved no replies, especially from users outside our communities.  The remaining 2 million tweets were replies whose conversations could not be traced back to the root.
-
+After some processing described below, our sampling process resulted in 5.5 million tweets, of which 230,023 were part of rooted conversations with at least one reply in our dataset. An additional 3.3 million tweets were not part of a conversation (not a reply, and received no replies).  Unfortunately, Twitter only tracks replies up a tree, so while we know with certainty whether a tweet is a reply (even if it is to a user outside our communities), we do not know with certainty that a tweet has recieved no replies, especially from users outside our communities. If anything, this fact makes our analyses conservative, as they may understate differences between reply and non-reply tweets. The remaining 2 million tweets were replies whose conversations could not be traced back to the root.
 
 \paragraph{Information content estimation}
 
-To estimate the information content of a tweet, we first tokenized the tweets using Twokenizer \cite{owoputi2013}. We then removed any number of mentions at the beginning or end of a tweet, as these are usually markers of conversation structure rather than conveying information themselves.  Tweet-medial mentions were retained but masked with the single type {\it [MENTION]}. Links were similarly masked as {\it [URL]}. Punctuation and emoji were retained.
+To estimate the information content of a tweet, we first tokenized the tweets using Twokenizer \cite{owoputi2013}. We then removed any number of mentions at the beginning or end of a tweet, as these are usually markers of conversation structure rather than conveying information themselves.  Tweet-medial mentions were retained but masked with the single type {\it [MENTION]}. Links were similarly masked as {\it [URL]}. Punctuation and emoji were retained. We then built trigram langauge models using SRILM with default settings and Kneser-Ney discounting.  Types with fewer than 5 tokens were treated as out-of-vocabulary items. 
 
-We then built trigram langauge models using SRILM with default settings and Kneser-Ney discounting.  Types with fewer than 5 tokens were treated as out-of-vocabulary items. For each seed user, the training set was the set of all tweets from all other seed users.  
+For each seed user, the training set was the set of all tweets from all other seed users.  JUSTIFICATION.
 
 \section{Analyses}
 
@@ -172,39 +175,42 @@ We describe the results of three sets of analyses looking at the influence of au
 [Note: final values of effect sizes and p-values, based on full regression model, will be added tonight. The graphs also need ot be improved]
 
 \subsection{Expected audience size}
-First, we consider three different types of tweets and their expected audience size.  A tweet whose first word is a mention will not appear in most Twitter visualizations unless the reader follows both the tweeter and the first-mentioned user, or is mentioned somewhere in the tweet. (We will refer to these as ``invisible'' tweets as they are invisible to followers by default.)  A tweeter making an initial-mention tweet thus should expect such a tweet to have a relatively limited audience, with a focus on the mentioned users.\footnote{As evidence for conscious manipulation of the audience size, many tweets have an initial period or other punctuation mark to prevent this hiding of a tweet, and some users will switch between initial-mention replies and ``dot''-replies in the course of a conversation to change the audience.}
 
-On the other side, a hashtag serves as an ad hoc categorization mechanism, and often is used to expand the potential audience for a tweet by including in the feeds of users tracking that hashtag, regardless of whether they follow the tweeter.  Thus, a tweeter using a hashtag should expect a larger audience than normal.  Finally, we have baseline tweets which contain neither mentions nor hashtags and whose expected audience size is approximately one's followers.
+First, we consider three different types of tweets and their expected audience size.  A tweet whose first word is a mention will not appear in most Twitter visualizations unless the reader follows both the tweeter and the first-mentioned user, or is mentioned somewhere in the tweet. (We will refer to these as ``invisible'' tweets as they are invisible to followers by default.)  A tweeter making an initial-mention tweet thus should expect such a tweet to have a relatively limited audience, with a focus on the mentioned users.\footnote{At least some twitter users consciously manipulate audience using these markers: many tweets have an initial period or other punctuation mark to prevent it from being hidden. Some users routinely switch between initial-mention replies and ``dot''-replies in the course of a conversation to change the audience, presumably depending on their estimate of the wider relevance of a remark.}
+
+On the other side, a hashtag serves as a tagging or categorization mechanism so that interested users can discover new content. Hashtags are thus often used to expand the potential audience for a tweet by including in the feeds of users tracking that hashtag, regardless of whether they follow the original tweeter, and so a tweeter using a hashtag should expect a larger audience than normal.\footnote{Hashtags are also used for emphasis or metalinguistic comment (e.g. \#notmyfavoritefridaymeal, \#toomuchinformation). These comments are probably not intended to broaden the tweet's audience. The inclusion of such hashtags should minimize differences between audiences by causing our analysis to underestimate variability across audience types.}  Finally, we have baseline tweets which contain neither mentions nor hashtags and whose expected audience size is approximately one's followers.
 
 Intuitively, context is higher for smaller audiences. Context should be highest for the invisible tweets, where the audience is limited and has seen or can access the previous tweets in the conversation.  Context should be lowest for the hashtagged tweets, where the audience is the largest and will likely contain many users who are completely unfamilair with the tweeter.  If contextualized UID is the driving force affecting information content, then the invisible tweets should have the highest entropy and hashtagged tweets should have the lowest.
 
 \begin{figure}
- \centering
-  \includegraphics[width=1.7in]{figures/cmcl-audience-pw.pdf}\includegraphics[width=1.7in]{figures/cmcl-audience-pt.pdf}
- \caption{Per-word (left) and per-tweet (right) entropy are higher for tweets with larger expected audience size. By-user 95\% confidence intervals.}\label{fig:audience}\vspace*{-.5em}
+ \centering \includegraphics[width=1.7in]{figures/cmcl-audience-pw.pdf}\includegraphics[width=1.7in]{figures/cmcl-audience-pt.pdf}
+ \caption{\label{fig:audience} Per-word (left) and per-tweet (right) entropy are higher for tweets with larger expected audience size. By-user 95\% confidence intervals.}
+\vspace*{-.5em}
 \end{figure}
 
-
-Figure \ref{fig:audience-coarse} plots the entropy of tweets for these three audience sizes, and shows the opposite effect.  Per-word and per-tweet entropy both significantly {\it increase} with expected audience size ($p < .001$).
+Figure \ref{fig:audience} plots the entropy of tweets for these three audience sizes.  Per-word and per-tweet entropy both significantly {\it increase} with expected audience size ($p < .001$), the opposite direction of our prediction. 
 
 \subsection{Known audience size}
-The results from expected audience size have a potential confound in that the way these different tweet types are accessed are substantially different, and may encourage different decision-theoretic choices in tweet behavior.  TWeets with mentions are highly likely to be seen by the mentioned user (unless the mentioned user is very commonly mentioned), whereas the likleihood of a given hashtagged tweet being seen through the hashtag-searching mechanism is very low.  This may lead a rational tweeter to package information into tweets differently, such as including more redundant information across tweets when the likleihood of any given tweet being read is low.
+
+The results from expected audience size have a potential confound in that the way these different tweet types are accessed are substantially different, and may encourage different kinds of communicative behavior.  Tweets with mentions are highly likely to be seen by the mentioned user (unless the mentioned user is very commonly mentioned), whereas the likelihood of a given hashtagged tweet being seen through the hashtag-searching mechanism is very low.  This uncertainty about audience may lead a rational tweeter to package information into tweets differently: they may include more redundant information across tweets when the likelihood of any given tweet being read is low.
 
 To assess audience size effects in a more controlled setting, we look at tweets with varying numbers of mentions.  Invisible tweets with few mentions have a smaller audience than invisible tweets with more mentions.  Visible tweets, on the other hand, have approximately the same audience size regardless of the number of mentions.  Therefore, we examine the effect of number of mentions in invisible tweets on entropy both in isolation and in comparison to the effect of the number of mentions in visible tweets.
 
-\begin{figure}
+\begin{figure}[t]
  \centering
   \includegraphics[width=3.25in]{figures/cmcl-mentions-pw.pdf}
-  \includegraphics[width=3.25in]{figures/cmcl-mentions-pt.pdf}
- \caption{Per-word (top) and per-tweet (bottom) entropy of tweets with different numbers of mentions and different visibility.  Invisible tweets' entropy increases with mentions, suggesting entropy increases with audience size.  Logarithmic fits with 95\% confidence intervals.}\label{fig:mentions}\vspace*{-.5em}
+  % \includegraphics[width=3.25in]{figures/cmcl-mentions-pt.pdf}
+ \caption{Per-word entropy of tweets with different numbers of mentions and different visibility.  Invisible tweets' entropy increases with mentions, suggesting entropy increases with audience size.  Logarithmic fits with 95\% confidence intervals.}\label{fig:mentions}\vspace*{-.5em}
 \end{figure}
 
-Figure \ref{fig:mentions} shows that the per-word entropy of invisible tweets goes up with the number of mentions, at least until the number of mentions is large enough that there is little room left in the tweet for anything but mentions.  The per-word entropy of viisble tweets, though, goes down with number of mentions.  (The per-tweet entropy is included, but each mention reduces the number of available characters for linguistically informative words, so this is not an easily interpretable measurement.)   For visible tweets, the audience size is relatively independent of the number of mentions, as most tweeters have substantially more followers than the maximum number of mentions in a tweet.  For invisible tweets, the audience size is dominated by the number of mentions, since most of the tweeter's followers are unlikely to see the invisible tweet.  Looking at the interaction between visible and invisible tweet behavior with an increasing number of mentions suggests a controlled effect of audience size.
+Figure \ref{fig:mentions} shows that the per-word entropy of invisible tweets goes up with the number of mentions (at least until the number of mentions is large enough that there is little room left in the tweet for anything but mentions - GIVE EXAMPLE OF HOW MANY CHARACTERS LEFT ON AVERAGE AFTER FIVE MENTIONS).  The per-word entropy of visible tweets, though, goes down with number of mentions.  
+
+One possible explanation of this pattern is as follows. For visible tweets, the audience size is relatively independent of the number of mentions, as most tweeters have substantially more followers than the maximum number of mentions in a tweet.  For invisible tweets, the audience size is dominated by the number of mentions, since most of the tweeter's followers are unlikely to see the invisible tweet.  Looking at the interaction between visible and invisible tweet behavior with an increasing number of mentions suggests a controlled effect of audience size.
 
 \subsection{Reply depth and conversation length}
 [Blah blah on why interesting.]
 
-\begin{figure}
+\begin{figure}[t]
  \centering
   \includegraphics[width=3.25in]{figures/cmcl-rlevel-pw.pdf}
   \includegraphics[width=3.25in]{figures/cmcl-rlevel-pt.pdf}
@@ -226,7 +232,9 @@ To summarize these effects, all conversations become more predictable as they go
 
 \section{Discussion}
 
-\subsection{Information decrease}
+In this study we ... SUMMARIZE
+
+% \subsection{Information decrease}
 Why do Twitter conversations look different from the increasingly-informative texts studied in previous work? For one, these are true dialogues, whereas almost all of the sentence-level context informativity results were based on single-author texts.  Dialogues are often reactive; for instance, a reply may be a clarification question, which is likely to be shorter and more preictable than the original statement. Aside from rhetorical questions, single-author texts are unlikely to include such predictable reactions.
 
 Furthermore, in most of the previously-studied genres, the authors of the texts could reasonably expect their readers to be both focused and unlikely to disengage from reading. Tweets, however, are often read and responded to while doing other tasks, reducing focus and increasing disengagement rates.  Interestingly, the one genre where \newcite{genzel2003} found a negative effect of sentence number on informativity was tabloid newspapers, whose authors can assume that their readers are likely to be distracted and to disengage prematurely.
@@ -242,7 +250,8 @@ Another possibility is that the noisy-channel model should be tweaked for settin
 %We gratefully acknowledge the support of ONR Grant N00014-13-1-0287.
 
 \newpage
-
+~
+\newpage
 \bibliographystyle{naaclhlt2015}
 \bibliography{tweetdiscourse}
 
