@@ -103,9 +103,11 @@ If $C_i$ is the common ground available prior to the production of discourse uni
 H_{\alpha}(Y_i|C_i) =  H(X_i) - I(X_i ; C_i) \label{eq:uid}
 \end{equation}
 
-$H(X_i)$ is the apparent entropy of the discourse unit independent of any common ground, and $I(X_i;C_i)$ is the mutual information of the discourse unit random variable $X_i$ and the common ground $C_i$.  The hypothesized equality in Eq. \ref{eq:uid} makes two predictions. First, as channel noise increases, $H_\alpha(Y_i)$ will decrease, and apparent entropy will decrease. Second, as common ground increases, apparent entropy will again increase.
+$H(X_i)$ is the apparent decontextualized entropy of the discourse unit independent of any common ground, and $I(X_i;C_i)$ is the mutual information of the discourse unit random variable $X_i$ and the common ground $C_i$.  The hypothesized equality in Eq. \ref{eq:uid} makes two predictions. First, as channel noise increases, $H_\alpha(Y_i)$ will decrease, and apparent entropy will decrease. Second, as common ground increases, apparent entropy will again increase.  
 
-%We take advantage of the conversational structure of Twitter to test these predictions.  We first manipulate 
+We take advantage of the conversational structure of Twitter to test these predictions.  We first examine three different types of tweets (replies, hashtagged, and baseline) with different noise levels and common ground affect tweet entropy.  We then consider replies with varying audience sizes to separate out an effect of common ground.  Finally, we look at the effects of common ground, by way of conversation structure, on tweet entropy.
+
+Contrary to previous UID findings, we do not see a clear increase in apparent entropy estimates due to more extensive common ground, as had been found in previous non-conversational work \cite{genzel2002,doyle2015}.  We propose two factors that may be influencing conversational content in addition to UID factors.  First, considering and adapting to two different types of noise---message loss and message corruption---may cause tweeters to make large-scale decisions that overwhelm any UID effects.  Second, achieving conversational goals may be more dependent on certain discourse units that carry low linguistic informativity but substantial social/conversational importance.
 
 \section{Corpus}
 
