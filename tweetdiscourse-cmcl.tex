@@ -152,7 +152,7 @@ Twitter conversations follow a basic tree structure with a unique root node. Eac
 
 Mentions also affect tweet visibility.  Tweets whose first character is a mention (whether or not it is a reply) do not show up by default when browsing a user's tweets, unless the browser follows both the tweeter and first-mentioned user.\footnote{This behavior varies slightly depending on what application is used to view Twitter.  On the website, mention-first tweets do not appear in lists and only appear after clicking the 'tweets \& replies' option on a timeline. On the Twitter mobile app, mention-first tweets appear by default on a timeline but still not in lists.}
 
-After some processing described below, our sampling process resulted in 5.5 million tweets, of which 230,023 were part of rooted conversations with at least one reply in our dataset. An additional 3.3 million tweets were not part of a conversation (not a reply, and received no replies).  Unfortunately, Twitter only tracks replies up a tree, so while we know with certainty whether a tweet is a reply (even if it is to a user outside our communities), we do not know with certainty that a tweet has recieved no replies, especially from users outside our communities. If anything, this fact makes our analyses conservative, as they may understate differences between reply and non-reply tweets. The remaining 2 million tweets were replies whose conversations could not be traced back to the root.
+After some processing described below, our sampling process resulted in 5.5 million tweets, of which 3.3 million were not part of a conversation (not a reply, and received no replies).  Within this data, we found 63,673 conversations that could be traced back to a root tweet, spanning 228,923 total tweets. Unfortunately, Twitter only tracks replies up a tree, so while we know with certainty whether a tweet is a reply (even if it is to a user outside our communities), we do not know with certainty that a tweet has recieved no replies, especially from users outside our communities. If anything, this fact makes our analyses conservative, as they may understate differences between reply and non-reply tweets. The remaining 2 million tweets were replies whose conversations could not be traced back to the root.
 
 \subsection{Information content estimation}
 
@@ -171,9 +171,39 @@ We describe the results of three sets of analyses looking at the influence of au
 
 First, we consider three different types of tweets and their expected audience size.  A tweet whose first word is a mention will not appear in most Twitter visualizations unless the reader follows both the tweeter and the first-mentioned user, or is mentioned somewhere in the tweet. (We will refer to these as ``invisible'' tweets as they are invisible to followers by default.)  A tweeter making an initial-mention tweet thus should expect such a tweet to have a relatively limited audience, with a focus on the mentioned users.\footnote{At least some twitter users consciously manipulate audience using these markers: many tweets have an initial period or other punctuation mark to prevent it from being hidden. Some users routinely switch between initial-mention replies and ``dot''-replies in the course of a conversation to change the audience, presumably depending on their estimate of the wider relevance of a remark.}
 
+\begin{table*}
+  \begin{tabular}{|c|l|c|}
+\hline
+Type & Tweet & Per-word entropy \\
+\hline
+\multirow{3}{*}{invisible\vspace*{-.7em}} & [MENTION] [MENTION] this is so accurate tho & 6.00\\
+\cline{2-3}
+ & [MENTION] can you come to my high school ? ;3 & 7.61\\
+\cline{2-3}
+ & \parbox[][6ex][c]{.7\textwidth}{[MENTION] Hi Kerry , Please send us your email address in order to discuss this matter further . Thanks !} & 8.58\\
+\hline
+\hline
+ & post your best puns in the comments of my latest instagram photo : [URL] & 7.44\\
+\cline{2-3}
+\multirow{2}{*}{baseline}  & \parbox[][6ex][c]{.7\textwidth}{ I wish I could start a blog dedicated to overly broad and sweeping introductory sentences} & 9.98\\
+\cline{2-3}
+&\parbox[][6ex][c]{.7\textwidth}{ this new year's eve in NYC , keep an eye peeled 4 Sad Michael Stipe . [URL] already found him : [URL]} & 7.17\\
+\hline
+\hline
+ & I will probably be quitting my job when \#GTAV comes out & 7.63\\
+\cline{2-3}
+\multirow{2}{*}{hashtagged} & \parbox[][6ex][c]{.7\textwidth}{\#UMAlumni what is the number one thing graduating seniors should know ? \#MGoGrad} & 6.80\\
+\cline{2-3}
+ & \parbox[][6ex][c]{.7\textwidth}{Brilliant interactive infographic : shows cone of uncertainty for \#climatechange [URL] \#howhotwillitget} & 12.1\\
+\hline
+  \end{tabular}
+ \caption{Example tweets.}\label{tab:ex}
+\end{table*}
+
+
 On the other side, a hashtag serves as a tagging or categorization mechanism so that interested users can discover new content. Hashtags are thus often used to expand the potential audience for a tweet by including in the feeds of users tracking that hashtag, regardless of whether they follow the original tweeter, and so a tweeter using a hashtag should expect a larger audience than normal.\footnote{Not all hashtags are intended for categorization; some are used for emphasis or metalinguistic comment (e.g. \#notmyfavoritefridaymeal, \#toomuchinformation). These comments are probably not intended to broaden the tweet's audience. The presence of such hashtags should, if anything, cause our analysis to underestimate variability across audience types.}  Finally, we have baseline tweets which contain neither mentions nor hashtags and whose expected audience size is approximately one's followers.
 
-Intuitively, context is higher for smaller audiences. Context should be highest for the invisible tweets, where the audience is limited and has seen or can access the previous tweets in the conversation.  Context should be lowest for the hashtagged tweets, where the audience is the largest and will likely contain many users who are completely unfamilair with the tweeter.  If contextualized UID is the driving force affecting information content, then the invisible tweets should have the highest entropy and hashtagged tweets should have the lowest.
+Intuitively, context is higher for smaller audiences. Context should be highest for the invisible tweets, where the audience is limited and has seen or can access the previous tweets in the conversation.  Context should be lowest for the hashtagged tweets, where the audience is the largest and will likely contain many users who are completely unfamiliar with the tweeter.  If contextualized UID is the driving force affecting information content, then the invisible tweets should have the highest entropy and hashtagged tweets should have the lowest.
 
 \begin{figure}
  \centering \includegraphics[width=1.7in]{figures/cmcl-audience-pw.pdf}\includegraphics[width=1.7in]{figures/cmcl-audience-pt.pdf}
@@ -181,7 +211,8 @@ Intuitively, context is higher for smaller audiences. Context should be highest 
 \vspace*{-.5em}
 \end{figure}
 
-Figure \ref{fig:audience} plots the entropy of tweets for these three audience sizes.  Per-word and per-tweet entropy both significantly {\it increase} with expected audience size ($p < .001$), the opposite direction of our prediction. We discuss this finding below in the context of our next analyses. 
+In this analysis, we use the full 5.5 million tweet database. Figure \ref{fig:audience} plots the entropy of tweets for these three audience sizes.  Per-word and per-tweet entropy both significantly {\it increase} with expected audience size ($p < .001$), the opposite direction of our prediction. We discuss this finding below in the context of our next analyses. 
+
 
 \subsection{Known audience size}
 
