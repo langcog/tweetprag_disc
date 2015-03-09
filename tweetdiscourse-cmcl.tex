@@ -129,9 +129,11 @@ To sample such interactions, we developed a ``seed'' strategy where we identifie
 
 \begin{table}
 \begin{center}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|c|c|c|c|}
 \hline
-{\tt @camerondallas} & \multirow{2}{*}{Youtube celebrities} \\
+Seed Users & Category \\ % & Replies & Non-replies\\
+\hline
+{\tt @camerondallas} & \multirow{2}{*}{Youtube stars} \\
 {\tt @rickypdillon} & \\
 \hline
 {\tt @edsheeran} & \multirow{2}{*}{Musicians} \\
@@ -147,7 +149,7 @@ To sample such interactions, we developed a ``seed'' strategy where we identifie
 {\tt @larrymishel} & \multirow{2}{*}{Economists} \\
 {\tt @paulnvandewater} & \\
 \hline
-{\tt @neiltyson} & \multirow{3}{*}{Pop. Scientists} \\
+{\tt @neiltyson} & \multirow{3}{*}{Scientists} \\
 {\tt @profbriancox} & \\
 {\tt @richardwiseman} & \\
 \hline
@@ -170,9 +172,9 @@ After some processing described below, our sampling process resulted in 5.5 mill
 
 \paragraph{Information content estimation}
 
-To estimate the information content of a tweet, we first tokenized the tweets using Twokenizer \cite{owoputi2013}. We then removed any number of mentions at the beginning or end of a tweet, as these are usually markers of conversation structure rather than conveying information themselves.  Tweet-medial mentions were retained but masked with the single type {\it [MENTION]}. Links were similarly masked as {\it [URL]}. Punctuation and emoji were retained. We then built trigram langauge models using SRILM with default settings and Kneser-Ney discounting.  Types with fewer than 5 tokens were treated as out-of-vocabulary items. 
+To estimate the information content of a tweet, we first tokenized the tweets using Twokenizer \cite{owoputi2013}. We then removed any number of mentions at the beginning or end of a tweet, as these are usually used to address certain users rather than to convey information themselves. (Tweets that only contained mentions were removed.)  Tweet-medial mentions were retained but masked with the single type {\it [MENTION]} to reduce sparsity. Links were similarly masked as {\it [URL]}. Punctuation and emoji were retained. We then built trigram langauge models using SRILM with default settings and Kneser-Ney discounting.  Types with fewer than 5 tokens were treated as out-of-vocabulary items. 
 
-For each seed user, the training set was the set of all tweets from all other seed users.  JUSTIFICATION.
+For each seed user, the training set was the set of all tweets from all other seed users.  This training set provides tweets that are contemporaneous to the test set and cover some of the same topics without containing the same users' tweets.
 
 \section{Analyses}
 
@@ -184,7 +186,7 @@ We describe the results of three sets of analyses looking at the influence of au
 
 First, we consider three different types of tweets and their expected audience size.  A tweet whose first word is a mention will not appear in most Twitter visualizations unless the reader follows both the tweeter and the first-mentioned user, or is mentioned somewhere in the tweet. (We will refer to these as ``invisible'' tweets as they are invisible to followers by default.)  A tweeter making an initial-mention tweet thus should expect such a tweet to have a relatively limited audience, with a focus on the mentioned users.\footnote{At least some twitter users consciously manipulate audience using these markers: many tweets have an initial period or other punctuation mark to prevent it from being hidden. Some users routinely switch between initial-mention replies and ``dot''-replies in the course of a conversation to change the audience, presumably depending on their estimate of the wider relevance of a remark.}
 
-On the other side, a hashtag serves as a tagging or categorization mechanism so that interested users can discover new content. Hashtags are thus often used to expand the potential audience for a tweet by including in the feeds of users tracking that hashtag, regardless of whether they follow the original tweeter, and so a tweeter using a hashtag should expect a larger audience than normal.\footnote{Hashtags are also used for emphasis or metalinguistic comment (e.g. \#notmyfavoritefridaymeal, \#toomuchinformation). These comments are probably not intended to broaden the tweet's audience. The inclusion of such hashtags should minimize differences between audiences by causing our analysis to underestimate variability across audience types.}  Finally, we have baseline tweets which contain neither mentions nor hashtags and whose expected audience size is approximately one's followers.
+On the other side, a hashtag serves as a tagging or categorization mechanism so that interested users can discover new content. Hashtags are thus often used to expand the potential audience for a tweet by including in the feeds of users tracking that hashtag, regardless of whether they follow the original tweeter, and so a tweeter using a hashtag should expect a larger audience than normal.\footnote{Not all hashtags are intended for categorization; some are used for emphasis or metalinguistic comment (e.g. \#notmyfavoritefridaymeal, \#toomuchinformation). These comments are probably not intended to broaden the tweet's audience. The presence of such hashtags should, if anything, cause our analysis to underestimate variability across audience types.}  Finally, we have baseline tweets which contain neither mentions nor hashtags and whose expected audience size is approximately one's followers.
 
 Intuitively, context is higher for smaller audiences. Context should be highest for the invisible tweets, where the audience is limited and has seen or can access the previous tweets in the conversation.  Context should be lowest for the hashtagged tweets, where the audience is the largest and will likely contain many users who are completely unfamilair with the tweeter.  If contextualized UID is the driving force affecting information content, then the invisible tweets should have the highest entropy and hashtagged tweets should have the lowest.
 
@@ -204,12 +206,12 @@ To assess audience size effects in a more controlled setting, we look at tweets 
 
 \begin{figure}[t]
  \centering
-  \includegraphics[width=3.25in]{figures/cmcl-mentions-pw.pdf}
+  \includegraphics[width=3.25in]{figures/cmcl-mentions-pw2.pdf}
   % \includegraphics[width=3.25in]{figures/cmcl-mentions-pt.pdf}
- \caption{Per-word entropy of tweets with different numbers of mentions and different visibility.  Invisible tweets' entropy increases with mentions, suggesting entropy increases with audience size.  Logarithmic fits with 95\% confidence intervals.}\label{fig:mentions}\vspace*{-.5em}
+ \caption{Per-word entropy of tweets with different numbers of mentions and different visibility.  Invisible tweets' entropy increases with mentions, while visible tweets' entropy decreases.  Logarithmic fits with 95\% confidence intervals.}\label{fig:mentions}\vspace*{-.5em}
 \end{figure}
 
-Figure \ref{fig:mentions} shows that the per-word entropy of invisible tweets goes up with the number of mentions (at least until the number of mentions is large enough that there is little room left in the tweet for anything but mentions - GIVE EXAMPLE OF HOW MANY CHARACTERS LEFT ON AVERAGE AFTER FIVE MENTIONS).  The per-word entropy of visible tweets, though, goes down with number of mentions.  
+Figure \ref{fig:mentions} shows that the per-word entropy of invisible tweets goes up with the number of mentions, although it levels off as the number of mentions grows.  The per-word entropy of visible tweets goes down with number of mentions.  (In both cases, the levelling off is likely due to the increasing number of characters used by 
 
 One possible explanation of this pattern is as follows. For visible tweets, the audience size is relatively independent of the number of mentions, as most tweeters have substantially more followers than the maximum number of mentions in a tweet.  For invisible tweets, the audience size is dominated by the number of mentions, since most of the tweeter's followers are unlikely to see the invisible tweet.  Looking at the interaction between visible and invisible tweet behavior with an increasing number of mentions suggests a controlled effect of audience size.
 
