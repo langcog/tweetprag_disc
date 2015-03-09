@@ -73,7 +73,7 @@ There is also some evidence for UID based on broader considerations, such as lin
 
 However, there is an important gap in these tests of the UID hypothesis: little work has been done looking at broad-scale information effects in interpersonal dialogue, the archetype of human linguistic communication.   The contextual studies cited above draw almost exclusively from long, well-structured written texts that function as monologues from writer to reader.  Some studies on phonological and syntactic reduction look at dialogues, but their analysis focuses on local effects, rather than broader context. With the exception of one preliminary study that provided a partial replication of the original complexity increase effect using the Switchboard corpus \cite{vega2009}, to our knowledge no work has explored how the dynamics of conversation interact with UID. 
 
-The present study applies information-theoretic analysis to a corpus of tweets that include a large number of natural dialogues.  Surprisingly, we do not see clear evidence of the UID hypothesis in these dialogues.  Instead, we propose that a noisy-channel analysis of such dialogues may explain other, orthogonal effects on information content that obscure attempts to attain information uniformity.
+The present study applies information-theoretic analysis to a corpus of tweets that include a large number of natural dialogues.  Surprisingly, we do not see clear evidence of the UID hypothesis in these dialogues.  Instead, we propose that a noisy-channel analysis of such dialogues may explain other effects on information content that obscure attempts to attain UID.
 
 %\section{Introduction}
 %
@@ -99,17 +99,23 @@ In the course of a message, as argued by \newcite{genzel2002}, the actual inform
 
 We approximate context for our dialogue studies by thinking in terms of the {\it common ground} that a rational speaker believes to exist, given the expected audience of their message. Common ground is defined as the knowledge that participants in a discourse have and that participants know other participants have, including the current conversational context \cite{clark1996}. This common ground can be built from a combination of linguistic and non-linguistic context, including previous messages within the discourse, preceding interactions between the conversation participants, and world knowledge about the topic being discussed.
 
-If $C_i$ is the common ground available prior to the production of discourse unit $Y_i$, and $\alpha$ is the expected noise level in the channel that $Y_i$ is transmitted through, then optimality within a noisy channel model predicts the following relationship will hold:
+To formalize this relationship, let $C_i$ be the common ground that exists prior to the production of discourse unit $Y_i$, and let $\alpha$ be the expected noise level in the channel that $Y_i$ is transmitted through.  Then optimality within a noisy channel model predicts that the noise-dependent optimal information rate $H_{\alpha}(Y_i)$ is related to the actual information rate as follows:
 
 \begin{equation}
 H_{\alpha}(Y_i|C_i) =  H(X_i) - I(X_i ; C_i) \label{eq:uid}
 \end{equation}
 
-$H(X_i)$ is the apparent decontextualized entropy of the discourse unit independent of any common ground, and $I(X_i;C_i)$ is the mutual information of the discourse unit random variable $X_i$ and the common ground $C_i$.  The hypothesized equality in Eq. \ref{eq:uid} makes two predictions. First, as channel noise increases, $H_\alpha(Y_i)$ will decrease, and apparent entropy will decrease. Second, as common ground increases, apparent entropy will increase.  
+Here, $H(X_i)$ is the apparent decontextualized entropy of the discourse unit independent of the common ground.  This quantity is often estimated from a language model that uses only local context, not higher-level discourse context or common ground.  We use a trigram Markov model in this study.
+
+$I(X_i;C_i)$ is the mutual information of the discourse unit random variable $X_i$ and the common ground $C_i$---essentially how much more predictable the next discourse unit becomes from knowing the common ground.  This is difficult to quantify in the Twitter conversations we consider, so we rely on the assumption that more common ground is correlated with greater mutual information, as in \newcite{genzel2002}.
+
+Eq. \ref{eq:uid} makes two UID-based predictions. First, as channel noise increases, transmission error increases, which in turn causes the optimal information transfer rate $H_\alpha(Y_i)$ to decrease.  Thus, to maintain equality with rising noise, the apparent entropy $H(X_i)$ should decrease, slowing down to account for increased errors.  Second, as common ground increases, $I(X_i;C_i)$ increases. To maintain equality with rising common ground, $H(X_i)$ should increase, so as not to convey information slower than necessary.
 
 \subsection{The current study}
 
-We take advantage of the conversational structure of Twitter to test these predictions.  We first examine three different types of tweets (replies, hashtagged, and baseline) with different noise levels and common ground affect tweet entropy.  We then consider replies with varying audience sizes to separate out an effect of common ground.  Finally, we look at the effects of common ground, by way of conversation structure, on tweet entropy. Contrary to previous UID findings, we do not see a clear increase in apparent entropy estimates due to more extensive common ground, as had been found in previous non-conversational work \cite{genzel2002,qian2012,doyle2015}.  
+We take advantage of the conversational structure of Twitter to test these predictions.  Because some tweets are replies to previous tweets, we can use this reply structure to build conversational trees, and to track the number of participants.  In addition, choices in tweet production can affect what audience is likely to see the tweet.  These variables are discussed in depth in Section \ref{sect:conversation}.
+
+We first examine three different types of tweets (replies, hashtagged, and baseline) that have different noise levels and audience size, to test the entropy effects predicted by Eq. \ref{eq:uid}.  We then restrict our analysis to replies with varying audience sizes to analyze audience size independently of noise.  Finally, we look at the effects of common ground, by way of conversation structure, on tweet entropy. Contrary to previous UID findings, we do not see a clear increase in apparent entropy estimates due to more extensive common ground, as had been found in previous non-conversational work \cite{genzel2002,qian2012,doyle2015}.  
 
 We propose two factors that may be influencing conversational content in addition to UID factors.  First, considering and adapting to two different types of noise---message loss and message corruption---may cause tweeters to make large-scale decisions that overwhelm any UID effects.  Second, achieving conversational goals may be more dependent on certain discourse units that carry low linguistic informativity but substantial social/conversational importance.
 
@@ -154,7 +160,7 @@ We began by choosing a set of 14 seed Twitter accounts that spanned a variety of
 
 To build conversations, we needed to obtain tweets directed to and from these seed users. For each seed user, we downloaded their last 1500 tweets, extracted all users mentioned within those tweets, and downloaded each of their last 1500 tweets.  To capture tweets that failed to start conversations with the seed users, we also added the last 1000 tweets mentioning each seed user's handle.  Tweets that appeared in multiple communities were removed.  Each reply contains the ID of the tweet it replies to, so we could rebuild conversation trees back to their roots, so long as all of the preceding tweets were made by users in our communities.
 
-\paragraph{Conversation structure and visibility}
+\paragraph{Conversation structure and visibility}\label{sect:conversation}
 
 Twitter conversations follow a basic tree structure with a unique root node. Each tweet is marked as a reply or not; for replies, the user and tweet IDs of the tweet it replies to is stored. Each tweet can be a reply to at most one other tweet, so a long conversation resembles a linked list with a unique root node. ``Mentions,'' the inclusion of a username in a tweet, are included in tweets by default throughout a conversation unless a tweeter chooses to remove some of them, so tweets deep in a conversation may be primarily composed of mentions rather than new information.
 
@@ -232,7 +238,7 @@ To summarize these effects, all conversations become more predictable as they go
 
 \section{Discussion}
 
-In this study we ... SUMMARIZE
+In this study we looked for evidence of UID effects in dialogues, using a large corpus of Twitter conversations.  Contrary to expectations, we failed to find UID effects; in fact, we often found information rate increasing when context changes would have predicted decreasing information rates.  Specifically, we found that messages to smaller audiences, which should have lower noise and greater context, actually have lower entropy than messages to larger, noisier, and less context-sharing audiences. Furthermore, we found that later messages within a reply chain, which should have greater context, also have less information.  This last result is especially surprising because UID context effects have been repeatedly found in more monologous texts.
 
 % \subsection{Information decrease}
 Why do Twitter conversations look different from the increasingly-informative texts studied in previous work? For one, these are true dialogues, whereas almost all of the sentence-level context informativity results were based on single-author texts.  Dialogues are often reactive; for instance, a reply may be a clarification question, which is likely to be shorter and more preictable than the original statement. Aside from rhetorical questions, single-author texts are unlikely to include such predictable reactions.
@@ -243,7 +249,9 @@ This leads to a second question: does this contradict the core UID claim?  Commo
 
 One possibility is that conversational efficiency is not measured in linguistic information alone, and the UID hypothesis is not valid when linguistic information rate optimization is not the primary goal.  The last tweet in a Twitter conversation, for instance, often looks distinct from the previous tweets; often it is just a single word (e.g., {\it haha}) or an emoji/emoticon.  These are highly predictable, and have low information content whether estimated in or out-of-context.  However, they convey important meta-linguistic information (e.g., acknowledgment, approval), and simply omitting this or replacing it with a response that looks more like its predecessors is clearly sub-optimal behavior for a normal conversationalist.  [Show/mention result on rate of no-linguistic-info tweets by reply level?]
 
-Another possibility is that the noisy-channel model should be tweaked for settings such as Twitter.  The locus of the noise in tweets centers on whether a reader gets the tweet and context at all.  Many Twitter users follow an enormous number of users, so outside of directed mentions and replies, there is a substantial chance that any given tweet will go unread by part of its intended audience. As a result, tweets may contain their own context; for instance, a user may talk about a recent event and include a link to an article about it.  
+Another possibility is that the noisy-channel model should be tweaked for settings such as Twitter.  The locus of the noise in tweets centers on whether a reader gets the tweet and context at all.  Many Twitter users follow an enormous number of users, so outside of directed mentions and replies, there is a substantial chance that any given tweet will go unread by part of its intended audience. As a result, tweets may contain their own context; for instance, a user may talk about a recent event and include a link to an article about it.
+
+Lastly, there is the possibility that turn-taking in conversations encourages uniformity not in the information-theoretic sense, but rather in terms of the pragmatic information conveyed per message.  For instance, suppose two tweeters are in an argument and one asks the other a yes or no question.  Due to this context, it is highly predictable that the next tweet will be ``yes'' or ``no'', making the mutual information term of Eq. \ref{eq:uid} very high.  However, the pragmatic information conveyed by either of these one-word answers is very high, essentially containing all the info from the previous question plus a little more.
 
 %\section*{Acknowledgments}
 %
