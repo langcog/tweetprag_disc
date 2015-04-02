@@ -204,7 +204,7 @@ Intuitively, common ground is higher for smaller audiences. It should be highest
 
 \begin{figure}
  \centering \includegraphics[width=1.7in]{figures/cmcl-audience-pw.pdf}\includegraphics[width=1.7in]{figures/cmcl-audience-pt.pdf}
- \caption{\label{fig:audience} Per-word (left) and per-tweet (right) entropy are higher for tweets with larger expected audience size. By-user 95\% confidence intervals.}
+ \caption{\label{fig:audience} Per-word (left) and per-tweet (right) entropy are higher for tweets with larger expected audience size. Error bars (in some cases smaller than plotting marker) show by-user 95\% confidence intervals.}
 \vspace*{-.5em}
 \end{figure}
 
@@ -253,7 +253,7 @@ Previous work supports the UID hypothesis that rational communicators adjust the
 
 Our current work synthesizes these two bodies of work by looking for evidence of discourse-level UID effects in a large corpus of Twitter conversations, including dialogues and many-party conversations.  Contrary to expectations, we failed to find UID effects; in fact, we often found information rate \emph{increasing} when context changes would have predicted decreasing information rates.  Specifically, we found that messages to smaller audiences, which should have lower noise and greater context and hence higher information density, actually have \emph{lower} information density than messages to larger, noisier, and less context-sharing audiences. Furthermore, we found that later messages within a reply chain, which should have greater context, have less information.  This last result is especially surprising because UID context effects have been repeatedly found in less conversational texts.
 
-So should we give up on UID? While our results were unexpected, as we discuss below, we believe that they instead encourage more reflection on how speakers conceptualize information for conversational UID. We propose two explanations: one suggesting that information may be structured idfferently in conversational settings, the other suggesting that the nature of noise in social media communication complicates the nature of UID.
+So should we give up on UID? While our results were unexpected, as we discuss below, we believe that they instead encourage more reflection on how speakers conceptualize information for conversational UID. We propose two explanations: one suggesting that information may be structured differently in conversational settings, the other suggesting that the nature of noise in social media communication complicates evaluations of UID.
 
 \subsection{Information in terms of contributions}
 
@@ -265,9 +265,9 @@ Dialogues are often reactive; for instance, a reply may be a clarification quest
 
 As a result, \newcite{clark1987} argue for a collaborative view of conversation structure, with conversations best viewed not as a series of utterances but as a series of contributions---sets of utterances that, combined, both specify some new content and establish it as part of the common ground.  UID as a rational behavior is based on the idea that a rational speaker seeks to maximize linguistic  information transfer, which would seem to be the primary goal during the content-specification portion of a contribution.  During the grounding portion of a contribution, though, the primary goal is likely to be to establish common ground as quickly as possible.  This goal is potentially more complex, as it depends on a variety of factors including the quality of the content-specification portion.  If the content specification was simple and clear, grounding can be acheived with low-entropy backchannels ({\it mm-hmm, right}, etc.); if it was complex or unclear, grounding will require more messages and greater message entropy.
 
-This conception suggests that UID may operate as usual for parts of a contribution, but not necessarily throughout it.  Instead, rational conversation behavior resembles an error-checking system, and UID may be best observed at a contribution-by-contribution level.
-
 Furthermore, conversations may contain exchanges that have little linguistic context but serve important social ends.  Many response tweets in our dataset are single, common words ({\it haha, lol}) or emoji/emoticons.  These provide important emotional information in a very low lexicosyntactic entropy package, much as a backchannel or meta-linguistic cue (e.g., a smile) might in face-to-face conversation.  This suggests that the information measure within UID may not be strictly based on literal lexicosyntactic information but rather a combination of linguistic and metalinguistic information.
+
+In sum, this conception suggests that in discourse, UID may operate as usual for parts of a contribution, but not necessarily throughout it.  Rational conversational behavior may resemble an error-checking system in which UID may be observed at a contribution-by-contribution level.
 
 \subsection{Multiple types of noise}
 
@@ -285,7 +285,7 @@ The decreases we observed may have to do with users optimizing the amount of inf
 %
 %Both of these factors---a need for discourse maintenance and an audience with limited attention---should mitigate \emph{increases} in information density. But common ground should never \emph{decrease} over the course of a conversation, even on social media, and the ability to look back at previous statements within a written conversation should make common ground more stable as well. Even given these mitigating circumstances, decontextualized estimates of entropy should still increase as shared context increases, given the noisy-channel derivation of UID. We propose two explanations for decreases. 
 
-Evidence in favor of the coversation- or noise-based explanation could be obtained by comparing the Twitter reply chain effects against a corpus of conversations in which message reception is essentially certain, as in person-to-person chat logs (e.g., \newcite{potts2012}).  If noise at the message level accounts for the anomalous Twitter behavior, then chat logs should show the UID effect of increasing entropy through the conversation. If turn-taking or meta-linguistic discourse functions drive it, chat logs would show decreasing entropy, as in our data. We intend to pursue this in future work.
+Evidence in favor of the coversation- or noise-based explanation could be obtained by comparing the Twitter reply chain effects against a corpus of conversations in which message reception is essentially certain, as in person-to-person chat logs (e.g., \citealt{potts2012}).  If noise at the message level accounts for the anomalous Twitter behavior, then chat logs should show the UID effect of increasing entropy through the conversation. If turn-taking or meta-linguistic discourse functions drive it, chat logs would show decreasing entropy, as in our data. We intend to pursue this in future work.
 
 \subsection{Conclusions}
 
