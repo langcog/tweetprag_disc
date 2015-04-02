@@ -134,13 +134,13 @@ ms <- mss %>%
             lppl = mean(lppl), 
             n = sum(n))
 
-pdf("../figures/cmcl-audience-pw.pdf", width=2.5, height=3.5)
+pdf("../figures/cmcl-audience-pw.pdf", width=2.5, height=2.5)
 
 qplot(audience, lppl, 
       #group = terminal, col = terminal, 
       ymin = lppl - ci, ymax = lppl + ci, 
       geom="pointrange",
-      data = ms,xlab='tweet type',ylab='per-word perplexity',title='per-word') +
+      data = ms,xlab='tweet type',ylab='per-word perplexity (bits)',title='per-word') +
       theme_classic()
                   
 dev.off()
@@ -160,13 +160,13 @@ ms <- mss %>%
             lppl = mean(lppl), 
             n = sum(n))
 
-pdf("../figures/cmcl-audience-pt.pdf", width=2.5, height=3.5)
+pdf("../figures/cmcl-audience-pt.pdf", width=2.5, height=2.5)
 
 qplot(audience, lppl, 
       #group = terminal, col = terminal, 
       ymin = lppl - ci, ymax = lppl + ci, 
       geom="pointrange",
-      data = ms,xlab='tweet type',ylab='per-tweet perplexity',title='per-word') +
+      data = ms,xlab='tweet type',ylab='per-tweet perplexity (bits)',title='per-word') +
       theme_classic()
                   
 dev.off()
@@ -283,16 +283,16 @@ mss <- fdf %>%
 #########################################################
 # Redoing number of mentions to have same data as rlevel/maxdesc tests
 
+fdf$visibility <- ifelse(fdf$invisible,'invisible','visible')
+
 maxmentions <- 6
 break_list <- 0:maxmentions
-
-fdf$visibility <- ifelse(fdf$invisible,'invisible','visible')
 
 mss <- fdf %>% 
   filter(!is.na(rlevel)) %>%
   filter(words>0) %>%
-  filter(maxdesc<maxrlevel) %>%
-  filter(rlevel<maxrlevel) %>%
+  #filter(maxdesc<maxrlevel) %>%
+  #filter(rlevel<maxrlevel) %>%
   filter(mentions<maxmentions) %>%
   filter(mentions>0) %>%
   mutate(binned.mentions = cut(mentions, 
@@ -314,19 +314,116 @@ ms <- mss %>%
 
 pdf("../figures/cmcl-mentions-pw2.pdf", width=5, height=3.5)
 
-qplot(log2(binned.mentions), lppl, 
+qplot(binned.mentions, lppl, 
       group = visibility, col = visibility, 
       ymin = lppl - ci, ymax = lppl + ci, 
       position = position_dodge(width = .1), 
       geom="pointrange",
       group = as.factor(binned.mentions),
       #col = as.factor(binned.mentions),
-      data = ms,xlab='log2 (# of mentions)',ylab='per-word perplexity (bits)',title='per-word') +
+      data = ms,xlab='# of mentions',ylab='per-word perplexity (bits)',title='per-word') +
   stat_smooth(data= mss,method='lm',
-              aes(x = log2(binned.mentions), 
+              aes(x = binned.mentions, 
                   y = lppl, 
-                  group = visibility)) + theme_classic() #+ scale_color_discrete(name='visibility')
+                  group = visibility)) + theme_classic() + scale_x_continuous(trans=log2_trans()) #+ scale_color_discrete(name='visibility')
   
+dev.off()
+
+
+############################################33
+
+mss <- fdf %>% 
+  filter(!is.na(rlevel)) %>%
+  filter(words>0) %>%
+  filter(maxdesc<maxrlevel) %>%
+  filter(rlevel<maxrlevel) %>%
+  mutate(binned.rlevel = cut(rlevel, 
+                             breaks = break_list, 
+                             labels = break_list[2:length(break_list)],
+                             include.lowest=F)) %>%
+  filter(!is.na(binned.rlevel)) %>%
+  mutate(binned.rlevel = as.numeric(as.character((binned.rlevel)))) %>%
+  mutate(binned.maxdesc = cut(maxdesc, 
+                             breaks = break_list, 
+                             labels = break_list[2:length(break_list)],
+                             include.lowest=F)) %>%
+  filter(!is.na(binned.maxdesc)) %>%
+  mutate(binned.maxdesc = as.numeric(as.character((binned.maxdesc)))) %>%
+  group_by(binned.rlevel, uid, binned.maxdesc) %>%
+  summarise(n = n(), 
+            ci = NA,
+            lppl = mean(lppl))
+
+ms <- mss %>%
+  group_by(binned.rlevel,binned.maxdesc) %>%
+  summarise(ci = sem(lppl)*1.96,
+            lppl = mean(lppl), 
+            n = sum(n))
+
+pdf("../figures/cmcl-rlevel-pw.pdf", width=5, height=3.5)
+
+qplot(binned.rlevel+1, lppl, 
+      #group = terminal, col = terminal, 
+      ymin = lppl - ci, ymax = lppl + ci, 
+      position = position_dodge(width = .1), 
+      geom="pointrange",
+      group = as.factor(binned.maxdesc),
+      col = as.factor(binned.maxdesc),
+      data = ms,xlab='reply level',ylab='per-word perplexity (bits)') +
+  geom_smooth(data= mss,method='lm',
+              aes(x = binned.rlevel+1, 
+                  y = lppl, 
+                  group = binned.maxdesc)) + theme_classic() + scale_color_discrete(name='maximum\ndepth') +
+      scale_x_continuous(trans=log2_trans(),breaks=c(1,2,4),labels=c('0','1','3'))
+                  
+dev.off()
+
+# Simpson's paradox per-tweet
+
+mss <- fdf %>% 
+  filter(!is.na(rlevel)) %>%
+  filter(words>0) %>%
+  filter(maxdesc<maxrlevel) %>%
+  filter(rlevel<maxrlevel) %>%
+  mutate(binned.rlevel = cut(rlevel, 
+                             breaks = break_list, 
+                             labels = break_list[2:length(break_list)],
+                             include.lowest=F)) %>%
+  filter(!is.na(binned.rlevel)) %>%
+  mutate(binned.rlevel = as.numeric(as.character((binned.rlevel)))) %>%
+  mutate(binned.maxdesc = cut(maxdesc, 
+                             breaks = break_list, 
+                             labels = break_list[2:length(break_list)],
+                             include.lowest=F)) %>%
+  filter(!is.na(binned.maxdesc)) %>%
+  mutate(binned.maxdesc = as.numeric(as.character((binned.maxdesc)))) %>%
+  group_by(binned.rlevel, uid, binned.maxdesc) %>%
+  summarise(n = n(), 
+            ci = NA,
+            lppl = mean(words*lppl))
+
+ms <- mss %>%
+  group_by(binned.rlevel,binned.maxdesc) %>%
+  summarise(ci = sem(lppl)*1.96,
+            lppl = mean(lppl), 
+            n = sum(n))
+
+pdf("../figures/cmcl-rlevel-pt.pdf", width=5, height=3.5)
+
+qplot(binned.rlevel+1, lppl, 
+      #group = terminal, col = terminal, 
+      ymin = lppl - ci, ymax = lppl + ci, 
+      position = position_dodge(width = .1), 
+      geom="pointrange",
+      group = as.factor(binned.maxdesc),
+      col = as.factor(binned.maxdesc),
+      data = ms,xlab='reply level',ylab='per-tweet perplexity (bits)') +
+  geom_smooth(data= mss,method='lm',
+              aes(x = binned.rlevel+1, 
+                  y = lppl, 
+                  group = binned.maxdesc)) + theme_classic() + scale_color_discrete(name='maximum\ndepth') +
+      scale_x_continuous(trans=log2_trans(),breaks=c(1,2,4),labels=c('0','1','3'))
+                  
 dev.off()
 
   
