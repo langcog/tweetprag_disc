@@ -56,7 +56,7 @@ Stanford, CA, USA, 94305\\
 \begin{document}
 \maketitle
 \begin{abstract}
-Optimal use of a noisy communication channel requires the uniform distribution of information across a message; the ``uniform information density'' (UID) hypothesis proposes that language producers aim for such uniformity. Previous research on monologue-like written texts has suggested that discourse context induces adaptations in production to maintain UID.  We consider conversational messages, using a large corpus of tweets, and look for UID behavior in interactive conversation.  We do not find evidence of UID behaviors, and even find context effects that are opposite that of previous, monologue-based research.  We propose possible explanations for these findings within an information-theoretic framework.
+Optimal use of a noisy communication channel requires the uniform distribution of information across a message; the ``uniform information density'' (UID) hypothesis proposes that language producers aim for such uniformity, and research on monologue-like written texts has found evidence for UID in production.  We consider conversational messages, using a large corpus of tweets, and look for UID behavior in interactive conversation.  We do not find evidence of UID behaviors, and even find context effects that are opposite that of previous, monologue-based research.  We propose that a more collaborative conception of information density and careful consideration of channel noise may be needed in the information-theoretic framework for conversation.
 
 \end{abstract}
 
@@ -70,7 +70,7 @@ There is also some evidence for UID based on broader, discourse-level context.  
 
 This leaves an important gap in these tests of the UID hypothesis: little work has looked at the influence of discourse-level context on information structure in interpersonal dialogue, the archetype of human linguistic communication.  With the exception of one preliminary study that provided a partial replication of the original complexity increase effect using the Switchboard corpus \cite{vega2009}, to our knowledge no work has explored how the broader dynamics of conversation interact with UID. 
 
-The present study applies information-theoretic analysis to a corpus of social media microblog posts that include a large number of natural dialogues.  Surprisingly, we do not see clear evidence of the UID hypothesis in these dialogues.  Instead, we propose that differences in the discourse-level structure of conversation compared to monologues may interfere with attaining UID in the standard formulation.
+The present study applies information-theoretic analysis to a corpus of social media microblog posts that include a large number of natural dialogues.  Surprisingly, we do not see clear evidence of the UID hypothesis in these dialogues.  Instead, we propose that differences in the discourse-level structure of conversation compared to monologues, such as the desire to establish that mutual understanding has been reached, may interfere with attaining UID in the standard formulation.  A more collaborative view of UID, encompassing content generation and grounding \cite{clark87}, may be needed to fully represent conversational structure.
 
 \subsection{Conversations, context, and content}
 
@@ -78,7 +78,7 @@ One common motivation for the UID hypothesis is a rational analysis based on a n
 
 In the course of a message, as argued by \newcite{genzel2002}, the actual information content per discourse unit is predicted by the entropy of the random variable $X_i$ representing the precise word choice or choices within the discourse unit, conditioned on the available context.  The precise extent of this context is difficult to pin down. 
 
-We estimate context for our dialogue studies by thinking in terms of the {\it common ground} that a rational speaker believes to exist, given the expected audience of their message. Common ground is defined as the knowledge that participants in a discourse have and that participants know other participants have, including the current conversational context \cite{clark1996}. This common ground can be built from a combination of linguistic and non-linguistic context, including previous messages within the discourse, preceding interactions between the conversation participants, and world knowledge. %about the topic being discussed.
+We estimate context for our studies by thinking in terms of the {\it common ground} that a rational speaker believes to exist, given the expected audience of their message. Common ground is defined as the knowledge that participants in a discourse have and that participants know other participants have, including the current conversational context \cite{clark1996}. This common ground can be built from a combination of linguistic and non-linguistic context, including previous messages within the discourse, preceding interactions between the conversation participants, and world knowledge. %about the topic being discussed.
 
 To formalize this relationship, let $C_i$ be the common ground that exists prior to the production of discourse unit $Y_i$, and let $\alpha$ be the expected noise level in the channel that $Y_i$ is transmitted through.  Then optimality within a noisy channel model predicts that the noise-dependent optimal information rate $H_{\alpha}(Y_i)$ is related to the actual information rate as follows:
 
@@ -253,7 +253,7 @@ Previous work supports the UID hypothesis that rational communicators adjust the
 
 Our current work synthesizes these two bodies of work by looking for evidence of discourse-level UID effects in a large corpus of Twitter conversations, including dialogues and many-party conversations.  Contrary to expectations, we failed to find UID effects; in fact, we often found information rate \emph{increasing} when context changes would have predicted decreasing information rates.  Specifically, we found that messages to smaller audiences, which should have lower noise and greater context and hence higher information density, actually have \emph{lower} information density than messages to larger, noisier, and less context-sharing audiences. Furthermore, we found that later messages within a reply chain, which should have greater context, have less information.  This last result is especially surprising because UID context effects have been repeatedly found in less conversational texts.
 
-So should we give up on UID? While our results were unexpected, as we discuss below, we believe that they instead encourage more reflection on how speakers conceptualize information for conversational UID. We propose two explanations: one suggesting that information may be structured differently in conversational settings, the other suggesting that the nature of noise in social media communication complicates evaluations of UID.
+So should we give up on UID? While our results were unexpected, as we discuss below, we believe that they instead encourage more reflection on how speakers conceptualize information for conversational UID. We consider two aspects of these conversations: first, that the collaborative nature of conversation introduces rational uses for (lexicosyntactic) information-sparse messages; second, that rational behaviors resulting from the nature of noise in social media communication complicates evaluations of UID.
 
 \subsection{Information in terms of contributions}
 
@@ -261,7 +261,7 @@ Why do Twitter conversations look different from the increasingly-informative te
 
 In monologues, there is neither an ability nor a need to check that common ground has been established. Participants in a conversation, though, must both produce content and establish grounding \cite{clark1987}. Participants employ many methods to establish grounding, including backchannels \cite{yngve1970,schegloff1982,iwasaki1997}, which have little lexicosyntactic information but provide crucial turn-taking and grounding cues.
 
-Dialogues are often reactive; for instance, a reply may be a clarification question, such as this observed reply: {\it [MENTION] What do you mean you saw the pattern?}  Such replies are typically shorter and more predictable than the original statement, and are often part of adjacency or coordinate pairs \cite{schegloff1973,clark1981}, where one participant's utterance massively constrains the other's next utterance. Such pairs cover a wide range of low-entropy messages that are likely to appear in multi-party conversation but not in monologic text, including question-and-answers, offer-and-acceptances, and goodbyes.
+Dialogues are often reactive; for instance, a reply may be a clarification question, such as this reply in our dataset: {\it [MENTION] What do you mean you saw the pattern?}  Such replies are typically shorter and more predictable than the original statement, and are often part of adjacency or coordinate pairs \cite{schegloff1973,clark1981}, where one participant's utterance massively constrains the other's next utterance. Such pairs cover a wide range of low-entropy messages that are likely to appear in multi-party conversation but not in monologic text, including question-and-answers, offer-and-acceptances, and goodbyes.
 
 As a result, \newcite{clark1987} argue for a collaborative view of conversation structure, with conversations best viewed not as a series of utterances but as a series of contributions---sets of utterances that, combined, both specify some new content and establish it as part of the common ground.  UID as a rational behavior is based on the idea that a rational speaker seeks to maximize linguistic  information transfer, which would seem to be the primary goal during the content-specification portion of a contribution.  During the grounding portion of a contribution, though, the primary goal is likely to be to establish common ground as quickly as possible.  This goal is potentially more complex, as it depends on a variety of factors including the quality of the content-specification portion.  If the content specification was simple and clear, grounding can be acheived with low-entropy backchannels ({\it mm-hmm, right}, etc.); if it was complex or unclear, grounding will require more messages and greater message entropy.
 
@@ -289,13 +289,13 @@ Evidence in favor of the coversation- or noise-based explanation could be obtain
 
 \subsection{Conclusions}
 
-We tested the Uniform Information Density hypothesis, which has been robustly demonstrated in monologue-like settings, on dialogues in Twitter. Surprisingly, we failed to find the predicted effects of context within these dialogues, and at times found evidence for effects going in the opposite direction.  We proposed that this behavior may indicate a crucial difference in how information flow is structured between monologues and dialogues, as well as how rational adaptation to noise manifests in different conversational settings.
+We tested the Uniform Information Density hypothesis, which has been robustly demonstrated in monologue-like settings, on dialogues in Twitter. Surprisingly, we failed to find the predicted effects of context within these dialogues, and at times found evidence for effects going in the opposite direction.  We proposed that this behavior may indicate a crucial difference in how information flow is structured between monologues and conversations, as well as how rational adaptation to noise manifests in different conversational settings.
 
 \section*{Acknowledgments}
 
 We gratefully acknowledge the support of ONR Grant N00014-13-1-0287.
 
-\newpage
+%\newpage
 \bibliographystyle{naaclhlt2015}
 \bibliography{tweetdiscourse}
 
