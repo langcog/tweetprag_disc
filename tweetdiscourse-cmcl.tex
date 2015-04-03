@@ -33,7 +33,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Effects of non-linguistic context
-\title{Audience size and noise levels modulate information density in Twitter conversations}
+\title{Audience size and contextual effects on information density in Twitter conversations}
 % Information content changes with audience and conversation length in microblog texts
 % common ground decreases information
 
@@ -66,7 +66,7 @@ Linguistic communication can be viewed from an information theoretic standpoint 
 
 Evidence in favor of UID has been found in many levels of language production. At the level of within-sentence context, there is clear evidence from phonology that speakers reduce more predictable sounds \cite{aylett2004,aylett2006,bell2003,demberg2012}, suggesting that they are giving more ``air time'' to less predictable material to equalize information density. And in syntax, speakers tend to drop optional materials (like the word ``that'' as a sentence-complementizer) in more predictable scenarios \cite{levy2007,frank2008,jaeger2010}, again implying a process of allocating communication time relative to predictability. These effects appear in both monologues and dialogues, suggesting that local linguistic context shapes message complexity.
 
-There is also some evidence for UID based on broader, discourse-level context.  \citealt{genzel2002} showed that word-by-word complexity (measured by a standard n-gram language model) increases across sequences of sentences. They hypothesized that this increase was due to a corresponding increase in non-linguistic information that would make even more complex linguistic structures easier to predict. Follow-ups have shown that this same complexity increase effect is attested in different document types and across languages \cite{genzel2003,qian2012}. However, these studies draw almost exclusively from long, well-structured written texts that function as monologues from writer to reader.  
+There is also some evidence for UID based on broader, discourse-level context.  \newcite{genzel2002} showed that word-by-word complexity (measured by a standard n-gram language model) increases across sequences of sentences. They hypothesized that this increase was due to a corresponding increase in non-linguistic information that would make even more complex linguistic structures easier to predict. Follow-ups have shown that this same complexity increase effect is attested in different document types and across languages \cite{genzel2003,qian2012}. However, these studies draw almost exclusively from long, well-structured written texts that function as monologues from writer to reader.  
 
 This leaves an important gap in these tests of the UID hypothesis: little work has looked at the influence of discourse-level context on information structure in interpersonal dialogue, the archetype of human linguistic communication.  With the exception of one preliminary study that provided a partial replication of the original complexity increase effect using the Switchboard corpus \cite{vega2009}, to our knowledge no work has explored how the broader dynamics of conversation interact with UID. 
 
@@ -237,7 +237,7 @@ The fact that invisible tweet entropy increases with number of mentions, even as
  \caption{Per-word (top) and per-tweet (bottom) entropy decrease with reply level and increase with conversation length.  Logarithmic fits with 95\% confidence intervals; x-axis is log-scaled.}\label{fig:rlevel-maxdesc}\vspace*{-.5em}
 \end{figure}
 
-We next turn to our second UID prediction: that information content should increase as common ground increases. As common ground is assumed to increase in dialogues \cite{clark1996}, we thus predict that Twitter conversations should show increases in information content that scale with reply level, the number of replies between the current tweet and the conversation root. Such a result would constitute a replication of \citealt{genzel2002} in the discourse context, and would confirm preliminary results on the Switchboard corpus by \citealt{vega2009}. As is clear from our analysis below, that is not what we found. 
+We next turn to our second UID prediction: that information content should increase as common ground increases. As common ground is assumed to increase in dialogues \cite{clark1996}, we thus predict that Twitter conversations should show increases in information content that scale with reply level, the number of replies between the current tweet and the conversation root. Such a result would constitute a replication of \newcite{genzel2002} in the discourse context, and would confirm preliminary results on the Switchboard corpus by \newcite{vega2009}. As is clear from our analysis below, that is not what we found. 
 	
 Figure \ref{fig:rlevel-maxdesc} plots mean perplexities for different reply levels and conversation lengths, with confidence intervals based on by-user means. Increasing the reply level decreases the information content of the tweet, while increasing the conversation length increases the information content.
 
@@ -285,11 +285,11 @@ The decreases we observed may have to do with users optimizing the amount of inf
 %
 %Both of these factors---a need for discourse maintenance and an audience with limited attention---should mitigate \emph{increases} in information density. But common ground should never \emph{decrease} over the course of a conversation, even on social media, and the ability to look back at previous statements within a written conversation should make common ground more stable as well. Even given these mitigating circumstances, decontextualized estimates of entropy should still increase as shared context increases, given the noisy-channel derivation of UID. We propose two explanations for decreases. 
 
-Evidence in favor of the coversation- or noise-based explanation could be obtained by comparing the Twitter reply chain effects against a corpus of conversations in which message reception is essentially certain, as in person-to-person chat logs (e.g., \citealt{potts2012}).  If noise at the message level accounts for the anomalous Twitter behavior, then chat logs should show the UID effect of increasing entropy through the conversation. If turn-taking or meta-linguistic discourse functions drive it, chat logs would show decreasing entropy, as in our data. We intend to pursue this in future work.
+Evidence in favor of the coversation- or noise-based explanation could be obtained by comparing the Twitter reply chain effects against a corpus of conversations in which message reception is essentially certain, as in person-to-person chat logs (e.g., \citealt{potts2012}).  If noise at the message level accounts for the anomalous Twitter behavior, then chat logs should show the UID effect of increasing entropy through the conversation. If turn-taking or meta-linguistic discourse functions drive it, chat logs would show decreasing entropy, as in our data.
 
 \subsection{Conclusions}
 
-We tested the Uniform Information Density hypothesis, which has been robustly demonstrated in monologue-like settings, on dialogues in Twitter. Surprisingly, we failed to find the predicted effects of context within these dialogues, and at times found evidence for effects going in the opposite direction.  We proposed possible explanations for these unexpected effects, which will require further experimentation to fully assess.
+We tested the Uniform Information Density hypothesis, which has been robustly demonstrated in monologue-like settings, on dialogues in Twitter. Surprisingly, we failed to find the predicted effects of context within these dialogues, and at times found evidence for effects going in the opposite direction.  We proposed that this behavior may indicate a crucial difference in how information flow is structured between monologues and dialogues, as well as how rational adaptation to noise manifests in different conversational settings.
 
 \section*{Acknowledgments}
 
